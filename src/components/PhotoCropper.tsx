@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Cropper } from 'react-cropper';
-// import 'cropperjs/dist/cropper.css'; // 註釋掉直接引入
+import 'cropperjs/dist/cropper.css'; // 重新啟用正確的引入
 import { usePhotoGrid } from '../context/PhotoGridContext';
 import { FiCheck, FiX, FiRotateCw, FiZoomIn, FiZoomOut } from 'react-icons/fi';
 
