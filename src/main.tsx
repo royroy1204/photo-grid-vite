@@ -1,3 +1,6 @@
+// 首先導入 React 修復文件確保模塊兼容性
+import './react-fix.js';
+
 import * as React from 'react'
 import * as ReactDOM from 'react-dom/client'
 import './index.css'
