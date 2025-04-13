@@ -4,10 +4,55 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SLAVIA｜PHOTO GRID APP</title>
+    <!-- 引入 React 和 ReactDOM 直接從 CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- 添加瀏覽器端的 React 修復腳本 -->
     <script src="./react-fix.js"></script>
+    <!-- 添加一個簡單的錯誤處理顯示 -->
+    <style>
+      #error-container {
+        display: none;
+        background-color: #ffdddd;
+        border: 1px solid #ff0000;
+        padding: 20px;
+        margin: 20px;
+        border-radius: 5px;
+      }
+      #loading-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-size: 18px;
+        color: #333;
+      }
+    </style>
   </head>
   <body>
+    <div id="loading-container">載入中... 請稍候</div>
+    <div id="error-container">
+      <h3>載入發生問題</h3>
+      <p>應用程序無法正確載入。請嘗試刷新頁面或稍後再試。</p>
+      <p id="error-details"></p>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // 確保頁面不會永遠空白
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          const root = document.getElementById('root');
+          const loading = document.getElementById('loading-container');
+          
+          // 如果root沒有子元素且還顯示載入中，可能是出錯了
+          if (root && (!root.children || root.children.length === 0) && loading && loading.style.display !== 'none') {
+            loading.style.display = 'none';
+            document.getElementById('error-container').style.display = 'block';
+            document.getElementById('error-details').textContent = '可能是 React 模塊加載錯誤，請嘗試開啟控制台查看詳細資訊。';
+          }
+        }, 5000); // 5秒後檢查
+      });
+    </script>
   </body>
 </html>
