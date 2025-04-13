@@ -26,21 +26,25 @@ export default async function handler(req, res) {
     let submissions = [];
     
     // If using Vercel KV:
-    /*
-    const { kv } = require('@vercel/kv');
-    const submissionIds = await kv.lrange('recent_submissions', 0, -1);
-    
-    if (submissionIds && submissionIds.length > 0) {
-      // Get all submissions in parallel
-      const submissionPromises = submissionIds.map(id => kv.get(id));
-      const submissionData = await Promise.all(submissionPromises);
+    try {
+      const { kv } = require('@vercel/kv');
+      const submissionIds = await kv.lrange('recent_submissions', 0, -1);
       
-      submissions = submissionIds.map((id, index) => ({
-        id,
-        ...submissionData[index]
-      })).filter(Boolean);
+      if (submissionIds && submissionIds.length > 0) {
+        // Get all submissions in parallel
+        const submissionPromises = submissionIds.map(id => kv.get(id));
+        const submissionData = await Promise.all(submissionPromises);
+        
+        submissions = submissionIds.map((id, index) => ({
+          id,
+          ...submissionData[index]
+        })).filter(Boolean);
+      }
+    } catch (kvError) {
+      console.error('KV error:', kvError);
+      // Fall back to empty array if KV is not set up
+      submissions = [];
     }
-    */
     
     // Return all submissions
     return res.status(200).json({ 

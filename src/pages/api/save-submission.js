@@ -22,13 +22,25 @@ export default async function handler(req, res) {
     // Log the submission to Vercel logs (these will be visible in the Vercel dashboard)
     console.log(`New submission received [${submissionId}]:`, JSON.stringify(submission));
     
-    // If you want to store in a database, you can use Vercel KV, Postgres, or other Vercel integrations
-    // Example with Vercel KV (you would need to set this up in your Vercel dashboard first):
-    /*
-    const { kv } = require('@vercel/kv');
-    await kv.set(submissionId, submission);
-    await kv.lpush('recent_submissions', submissionId);
-    */
+    // Store in Vercel KV
+    try {
+      const { kv } = require('@vercel/kv');
+      
+      // Store the submission data with the submission ID as key
+      await kv.set(submissionId, submission);
+      
+      // Add the submission ID to a list of recent submissions
+      await kv.lpush('recent_submissions', submissionId);
+      
+      // Set expiration for 90 days (in seconds)
+      const EXPIRATION_DAYS = 90;
+      await kv.expire(submissionId, 60 * 60 * 24 * EXPIRATION_DAYS);
+      
+      console.log(`Submission saved to KV with ID: ${submissionId}`);
+    } catch (kvError) {
+      console.error('KV error:', kvError);
+      // Continue even if KV fails, as we still want to return success to the user
+    }
     
     // Return success
     return res.status(200).json({ 

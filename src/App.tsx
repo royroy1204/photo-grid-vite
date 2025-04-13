@@ -138,7 +138,7 @@ const App: React.FC = () => {
                   <div className="mb-6">
                     <div className="flex justify-between items-center mb-4">
                       <h2 className="text-lg font-medium text-gray-800">1. Upload Your Photos</h2>
-                      <span className="text-sm text-gray-500">20 photos • Auto crop to square</span>
+                      <span className="text-sm text-gray-500">20 photos</span>
                     </div>
                     <PhotoUploader />
                   </div>
@@ -151,7 +151,7 @@ const App: React.FC = () => {
                     <PhotoGrid onEditPhoto={handleEditPhoto} />
                   </div>
 
-                  <div className="flex justify-end pt-2">
+                  <div className="flex justify-center pt-2">
                     <button
                       onClick={() => setAppView(AppView.PREVIEW)}
                       className="px-5 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
