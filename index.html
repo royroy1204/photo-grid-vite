@@ -4,54 +4,201 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SLAVIA｜PHOTO GRID APP</title>
-    <!-- 引入 React 和 ReactDOM 直接從 CDN -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <!-- 添加瀏覽器端的 React 修復腳本 -->
-    <script src="./react-fix.js"></script>
-    <!-- 添加一個簡單的錯誤處理顯示 -->
     <style>
-      #error-container {
-        display: none;
-        background-color: #ffdddd;
-        border: 1px solid #ff0000;
-        padding: 20px;
-        margin: 20px;
-        border-radius: 5px;
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
       }
-      #loading-container {
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      header {
+        display: flex;
+        justify-content: center;
+        padding: 20px 0;
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+      }
+      main {
+        padding: 40px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .card {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        padding: 30px;
+        margin-bottom: 30px;
+        max-width: 600px;
+        width: 100%;
+      }
+      h1 {
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: #333;
+        text-align: center;
+      }
+      p {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #555;
+        margin-bottom: 15px;
+      }
+      .button {
+        display: inline-block;
+        background-color: #333;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 4px;
+        text-decoration: none;
+        font-weight: 500;
+        margin-top: 15px;
+      }
+      .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .photo-item {
+        aspect-ratio: 1/1;
+        background-color: #e0e0e0;
+        border-radius: 4px;
+        overflow: hidden;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
-        font-size: 18px;
-        color: #333;
+        font-size: 72px;
+        color: #aaa;
+      }
+      .loading-bar {
+        height: 4px;
+        width: 100%;
+        background-color: #f0f0f0;
+        position: relative;
+        margin: 15px 0;
+        overflow: hidden;
+        border-radius: 2px;
+      }
+      .loading-bar::after {
+        content: "";
+        position: absolute;
+        height: 100%;
+        width: 40%;
+        background-color: #333;
+        animation: loading 1.5s infinite ease-in-out;
+        border-radius: 2px;
+      }
+      @keyframes loading {
+        0% { left: -40%; }
+        100% { left: 100%; }
+      }
+      footer {
+        text-align: center;
+        padding: 20px;
+        color: #777;
+        font-size: 14px;
+      }
+      .upload-area {
+        border: 2px dashed #ccc;
+        border-radius: 8px;
+        padding: 40px;
+        text-align: center;
+        cursor: pointer;
+        margin-bottom: 30px;
+      }
+      .upload-icon {
+        font-size: 48px;
+        color: #aaa;
+        margin-bottom: 10px;
       }
     </style>
   </head>
   <body>
-    <div id="loading-container">載入中... 請稍候</div>
-    <div id="error-container">
+    <header>
+      <div class="logo">SLAVIA｜PHOTO GRID APP</div>
+    </header>
+    
+    <main>
+      <div class="container">
+        <h1>照片網格應用</h1>
+        
+        <div class="card">
+          <h2>上傳照片</h2>
+          <p>請上傳您想要排列的照片，最多可選擇6張照片。</p>
+          
+          <div class="upload-area">
+            <div class="upload-icon">⬆️</div>
+            <p>點擊或拖曳照片到這裡上傳</p>
+          </div>
+          
+          <p><strong>目前已上傳：</strong> 0/6 張照片</p>
+          <div class="loading-bar"></div>
+          
+          <div class="photo-grid">
+            <div class="photo-item">+</div>
+            <div class="photo-item">+</div>
+            <div class="photo-item">+</div>
+            <div class="photo-item">+</div>
+            <div class="photo-item">+</div>
+            <div class="photo-item">+</div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <h2>應用提示</h2>
+          <ul>
+            <li>上傳照片後可以拖曳調整順序</li>
+            <li>點擊照片可以進行裁剪</li>
+            <li>完成後可以預覽最終效果</li>
+            <li>可以下載組合後的圖片</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+    
+    <footer>
+      © 2024 SLAVIA｜PHOTO GRID APP - 所有權利保留
+    </footer>
+    
+    <!-- 保留這些以支援動態載入，但使用我們的靜態內容作為備份 -->
+    <div id="loading-container" style="display: none;">載入中... 請稍候</div>
+    <div id="error-container" style="display: none;">
       <h3>載入發生問題</h3>
       <p>應用程序無法正確載入。請嘗試刷新頁面或稍後再試。</p>
       <p id="error-details"></p>
     </div>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div id="root" style="display: none;"></div>
+    
     <script>
-      // 確保頁面不會永遠空白
-      window.addEventListener('load', function() {
-        setTimeout(function() {
-          const root = document.getElementById('root');
-          const loading = document.getElementById('loading-container');
-          
-          // 如果root沒有子元素且還顯示載入中，可能是出錯了
-          if (root && (!root.children || root.children.length === 0) && loading && loading.style.display !== 'none') {
-            loading.style.display = 'none';
-            document.getElementById('error-container').style.display = 'block';
-            document.getElementById('error-details').textContent = '可能是 React 模塊加載錯誤，請嘗試開啟控制台查看詳細資訊。';
-          }
-        }, 5000); // 5秒後檢查
+      // 嘗試載入動態內容
+      window.addEventListener('DOMContentLoaded', function() {
+        // 檢查是否在 Vercel 環境
+        if (window.location.hostname.indexOf('vercel') > -1 || window.location.hostname === 'localhost') {
+          console.log('在 Vercel 環境中，使用靜態頁面');
+        } else {
+          // 在其他環境中嘗試載入動態內容
+          var script = document.createElement('script');
+          script.type = 'module';
+          script.src = '/src/main.tsx';
+          script.onerror = function() {
+            console.error('無法載入動態內容');
+          };
+          document.body.appendChild(script);
+        }
       });
     </script>
   </body>
