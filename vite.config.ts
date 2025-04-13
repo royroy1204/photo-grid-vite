@@ -12,5 +12,8 @@ export default defineConfig({
         manualChunks: undefined, // 防止代碼分割
       },
     },
+    commonjsOptions: {
+      transformMixedEsModules: true, // 轉換混合的 ES 模塊
+    }
   }
 })
