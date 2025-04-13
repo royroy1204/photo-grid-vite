@@ -70,3 +70,31 @@ https://your-domain.com/pages/admin/submissions
 - **生產環境**: 數據保存在 Vercel KV 存儲中（需要配置 KV 存儲）
 
 照片數據會被保存 90 天，之後自動過期。
+
+## GitHub 部署說明
+
+要將項目上傳到 GitHub 並部署到 Vercel，請按照以下步驟操作：
+
+1. 在 GitHub 創建新倉庫
+
+```bash
+# 為遠程倉庫添加源
+git remote add origin https://github.com/你的用戶名/photo-grid-app.git
+
+# 設置主分支
+git branch -M main
+
+# 推送到 GitHub
+git push -u origin main
+```
+
+2. 在 Vercel 中導入 GitHub 項目：
+   - 登錄 Vercel 帳戶
+   - 點擊 "New Project"
+   - 從 GitHub 倉庫列表中選擇項目
+   - 保留默認設置並點擊 "Deploy"
+
+3. 配置 Vercel KV 存儲（可選）：
+   - 在 Vercel 儀表板中選擇您的項目
+   - 點擊 "Storage"
+   - 選擇 "KV" 並按照說明設置

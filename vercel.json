@@ -4,7 +4,10 @@
     {
       "src": "package.json",
       "use": "@vercel/static-build",
-      "config": { "distDir": "dist" }
+      "config": {
+        "buildCommand": "npm run build",
+        "outputDirectory": "dist"
+      }
     },
     {
       "src": "src/pages/api/**/*.js",
@@ -13,12 +16,12 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/src/pages/api/$1"
+      "src": "/pages/api/(.*)",
+      "dest": "/pages/api/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "/dist/$1"
+      "dest": "/index.html"
     }
   ]
 } 
